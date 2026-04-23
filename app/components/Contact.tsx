@@ -28,7 +28,7 @@ export default function Contact() {
             <div className="pt-8 border-t border-slate-700">
               <p className="text-slate-400 mb-4">Connect on LinkedIn</p>
               <a
-                href="https://www.linkedin.com/in/your-profile"
+                href="https://www.linkedin.com/in/patlehmann"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 text-blue-400 hover:text-blue-300 font-medium transition-colors"
