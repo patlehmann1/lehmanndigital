@@ -18,10 +18,10 @@ export default function Contact() {
                 Send me an email to discuss your project requirements, timeline, and how we can work together.
               </p>
               <a
-                href="mailto:contact@lehmanndigital.com"
+                href="mailto:patrick@lehmanndigital.com"
                 className="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold px-8 py-4 rounded-lg transition-colors duration-200 shadow-lg hover:shadow-xl"
               >
-                contact@lehmanndigital.com
+                patrick@lehmanndigital.com
               </a>
             </div>
 
