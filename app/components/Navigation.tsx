@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 export default function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("home");
 
   useEffect(() => {
     const handleScroll = () => {
@@ -13,6 +14,26 @@ export default function Navigation() {
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
+    const sectionIds = ["home", "services", "about", "approach", "contact"];
+    const observers: IntersectionObserver[] = [];
+
+    sectionIds.forEach((id) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) setActiveSection(id);
+        },
+        { threshold: 0.4 }
+      );
+      observer.observe(el);
+      observers.push(observer);
+    });
+
+    return () => observers.forEach((o) => o.disconnect());
   }, []);
 
   // Close mobile menu when clicking outside
@@ -77,15 +98,23 @@ export default function Navigation() {
           {/* Desktop Navigation Links */}
           <div className="hidden md:flex items-center">
             <div className="flex space-x-1 sm:space-x-2">
-              {navLinks.map((link) => (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  className="px-3 py-2 rounded-md text-sm font-medium text-slate-700 hover:text-blue-600 hover:bg-blue-50 transition-all duration-200"
-                >
-                  {link.name}
-                </a>
-              ))}
+              {navLinks.map((link) => {
+                const id = link.href.replace('#', '')
+                const isActive = activeSection === id
+                return (
+                  <a
+                    key={link.name}
+                    href={link.href}
+                    className={`px-3 py-2 rounded-md text-sm font-medium transition-all duration-200 ${
+                      isActive
+                        ? 'text-blue-600 bg-blue-50'
+                        : 'text-slate-700 hover:text-blue-600 hover:bg-blue-50'
+                    }`}
+                  >
+                    {link.name}
+                  </a>
+                )
+              })}
             </div>
           </div>
 
@@ -126,16 +155,24 @@ export default function Navigation() {
         }`}
       >
         <div className="px-4 py-4 space-y-1">
-          {navLinks.map((link) => (
-            <a
-              key={link.name}
-              href={link.href}
-              onClick={handleLinkClick}
-              className="block px-4 py-3 rounded-md text-base font-medium text-slate-700 hover:text-blue-600 hover:bg-blue-50 transition-all duration-200"
-            >
-              {link.name}
-            </a>
-          ))}
+          {navLinks.map((link) => {
+            const id = link.href.replace('#', '')
+            const isActive = activeSection === id
+            return (
+              <a
+                key={link.name}
+                href={link.href}
+                onClick={handleLinkClick}
+                className={`block px-4 py-3 rounded-md text-base font-medium transition-all duration-200 ${
+                  isActive
+                    ? 'text-blue-600 bg-blue-50'
+                    : 'text-slate-700 hover:text-blue-600 hover:bg-blue-50'
+                }`}
+              >
+                {link.name}
+              </a>
+            )
+          })}
         </div>
       </div>
 

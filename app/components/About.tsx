@@ -1,7 +1,12 @@
+'use client'
+
+import { useInView } from '../hooks/useInView'
+
 export default function About() {
+  const { ref, inView } = useInView()
   return (
     <section id="about" className="py-20 px-4 sm:px-6 lg:px-8 bg-slate-50">
-      <div className="max-w-4xl mx-auto">
+      <div ref={ref} className={`max-w-4xl mx-auto transition-all duration-700 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="text-center mb-12">
           <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">
             About

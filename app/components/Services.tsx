@@ -1,4 +1,9 @@
+'use client'
+
+import { useInView } from '../hooks/useInView'
+
 export default function Services() {
+  const { ref, inView } = useInView()
   const services = [
     {
       title: "ASP.NET / .NET Development",
@@ -24,7 +29,7 @@ export default function Services() {
 
   return (
     <section id="services" className="py-20 px-4 sm:px-6 lg:px-8 bg-white">
-      <div className="max-w-6xl mx-auto">
+      <div ref={ref} className={`max-w-6xl mx-auto transition-all duration-700 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="text-center mb-16">
           <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">
             Services
